@@ -19,8 +19,8 @@ public class ServletControllerDelegate implements Controller {
 
 	public ModelAndView handleRequest(HttpServletRequest request,
 			HttpServletResponse response) throws Exception {
-		
-		response.getWriter().println("Entering servlet controller delegate");
+
+		response.getWriter().println("Servlet controller delegate for example-servlet3");
 		ApplicationContext applicationContext = (ApplicationContext) request.getAttribute("spring.context");
 		
 		/*
@@ -30,13 +30,13 @@ public class ServletControllerDelegate implements Controller {
 		response.getWriter().write("Just executed bean " + SharedBean.class.getName() + ": " + bean);
 		*/
 		
-		response.getWriter().println("Can still access class, though: " + SharedBean.class.getName());
+		response.getWriter().println("Accessed class for shared bean: " + SharedBean.class.getName());
 		new SharedBean().executeMe();
 		
 		EntryDAO entryDAO = (EntryDAO) applicationContext.getBean("entryDAO");
-		int year = 1996;
-		Collection<Entry> entries = entryDAO.getEntriesWithCount(year);
-		response.getWriter().println("Just got " + entries.size() + " entries of count " + year);
+		int count = 1996;
+		Collection<Entry> entries = entryDAO.getEntriesWithCount(count);
+		response.getWriter().println("Retrieved " + entries.size() + " entries of count " + count);
 		
 		return null;
 	}
